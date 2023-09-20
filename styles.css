@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.root {
+    display: flex;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+form {
+    padding: 50px;
+}
+
+input {
+    margin-bottom: 20px;
+}
+
+.registration-form {
+    width: 50%;
+}
+
+.header {
+    color: black;
+    text-align: center;
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.errors {
+    position: absolute;
+    height: 25px;
+}
