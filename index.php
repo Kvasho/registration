@@ -15,29 +15,29 @@ $password = $_POST['password'] ?? null;
 $password2 = $_POST['password2'] ?? null;
 #ფორმების ვალიდაცია
 $errors = [];
-if(!$name) {
-    $errors[] = 'შეიყვანეთ სახელი !!!';
-}
-if(!$surname) {
-    $errors[] = 'შეიყვანეთ გვარი !!!';
-}
-if(!$id_number) {
-    $errors[] = 'შეიყვანეთ პირადი ნომერი !!!';
-}
-if(!$email) {
-    $errors[] = 'შეიყვანეთ იმეილი !!!';
-}
-if(!$password) {
-    $errors[] = 'შეიყვანეთ პაროლი !!!';
-}
-if($password !== $password2){
-    $errors[] = 'პაროლები არ ემთხვევა ერთმანეთს !!!';
-}
-
-if(empty($errors)){    
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
-              
-        #მონაცემების ჩაწერა ბაზის შესაბამის ცხრილში
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if($email){
+        $sss = $pdo->prepare('SELECT * FROM user_registration WHERE email like :keyword');
+        $sss->bindValue(":keyword", "%$email%");
+        $sss->execute();
+        $users = $sss->fetchAll(PDO::FETCH_ASSOC);
+        if($users){
+            $errors[] = 'მომხმარებელი ასეთი იმეილით უკვე არსებოობბბსსსს !!!'; 
+        }
+    }
+    
+    if($id_number){
+        $sss = $pdo->prepare('SELECT * FROM user_registration WHERE id_number like :keyword');
+        $sss->bindValue(":keyword", "%$id_number%");
+        $sss->execute();
+        $users = $sss->fetchAll(PDO::FETCH_ASSOC);
+        if($users){
+            $errors[] = 'მომხმარებელი ასეთი პირადი ნომრით უკვე არსებოობბბსსსს !!!';       
+        } 
+    } 
+    include './partials/checkInputs.php';   
+    if(empty($errors)){
+        #მონაცემების ჩაწერა ბაზის შესაბამის ცხრილში    
         $statement = $pdo->prepare("INSERT INTO user_registration (name,surname,id_number,email, password)
                                     VALUES (:name, :surname, :id_number, :email, :password)");
         $statement->bindValue(':name', $name);
@@ -46,11 +46,8 @@ if(empty($errors)){
         $statement->bindValue(':email', $email);
         $statement->bindValue(':password', md5($password));               
         $statement->execute();
-    }
+    }      
 }
-
-var_dump($errors);
-
 ?>
 
 
@@ -63,42 +60,13 @@ var_dump($errors);
     } else {
         document.querySelector('.registerBtn').disabled = true;
     }
-    }
+}
 </script>
 
 <h1 class="header">რეგისტრაციის ფორმა</h1>
 <div class="root">    
-<form class="registration-form center" method="post" enctype="multipart/form-data">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" placeholder="სახელი" name="name">
-        <label for="floatingInput">სახელი</label>
-    </div>
-    <div class="form-floating">
-        <input type="text" class="form-control"  name="surname" placeholder="გვარი">
-        <label for="floatingPassword">გვარი</label>
-    </div>
-    <div class="form-floating">
-        <input type="number" class="form-control"  name="id_number" placeholder="პირადი ნომერი">
-        <label for="floatingPassword">პირადი ნომერი</label>
-    </div>
-    <div class="form-floating">
-        <input type="email" class="form-control"  name="email" placeholder="ელ ფოსტა">
-        <label for="floatingPassword">ელ ფოსტა</label>
-    </div>
-    <div class="form-floating">
-        <input type="password" class="form-control"  name="password" placeholder="პაროლი">
-        <label for="floatingPassword">პაროლი</label>
-    </div>
-    <div class="form-floating">
-        <input type="password" class="form-control"  name="password2" placeholder="გაიმეორეთ პაროლი">
-        <label for="floatingPassword">გაიმეორეთ პაროლი</label>
-    </div>
-    <li class="list-group-item">
-        <input class="form-check-input me-1" type="checkbox" onclick=exefunction() id="checkbox" name="checkbox" value="accept" id="firstCheckbox" onclick=validate() >
-        <label class="form-check-label" for="firstCheckbox">ვეთანხმები წესებს</label>
-  </li>
-  <button type="submit" id="registerBtn" class="registerBtn btn btn-primary" disabled>რეგისტრაცია</button>
-</form>
+<?php include './partials/form.php' ?>
+<?php include './partials/loginForm.php' ?>
 <!-- ERRORS -->
 <?php if(!empty($errors)): ?>
     <div class="errors">
@@ -111,17 +79,6 @@ var_dump($errors);
     </div>
 <?php endif; ?>
 </div>
-
-
-<!-- <?php if(empty($errors)): ?>
-    <div class="errors">
-        Tqven warmatebit gaiaret registracia sagol
-    </div>
-<?php endif; ?> -->
-
-
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
 integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 

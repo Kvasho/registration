@@ -5,14 +5,15 @@
 }
 
 .root {
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: calc(100% - 100px);
+    margin: auto;
 }
 
-.center {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+h5 {
+    padding-bottom: 20px;
+    color: green;
 }
 
 form {
@@ -21,10 +22,6 @@ form {
 
 input {
     margin-bottom: 20px;
-}
-
-.registration-form {
-    width: 50%;
 }
 
 .header {
