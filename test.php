@@ -1,28 +1,29 @@
 <?php 
-// $pdo = new PDO('mysql:host=localhost;port=3306;dbname=users', 'root', '');
-// $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// $statemant = $pdo->prepare('SELECT * FROM user_registration');
-// $statemant->execute();
-// $users = $statemant->fetchAll(PDO::FETCH_ASSOC);
+require './database.php';
 
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>
-    <?php  
-    if(isset($_POST["check_username"])){
-        echo 123;
+// if($_SERVER['REQUEST_METHOD'] === 'GET'){
+// if($loginEmail){
+//     $sss = $pdo->prepare('SELECT * FROM user_registration WHERE email like :keyword');
+//     $sss->bindValue(":keyword", "%$loginEmail%");
+//     $sss->execute();
+//     $users = $sss->fetchAll(PDO::FETCH_ASSOC);
+//     if($users){
+//         echo "პაროლი სწორია"; 
+//     }
+// }
+// }
+
+if (isset($_POST["login"])) {
+    $loginEmail = $_POST['login_email'] ?? null;
+    $loginPassword = $_POST['login_password'] ?? null;
+    if ($loginPassword) {
+        $loginPasswordCr = md5($loginPassword);
+        $sss = $pdo->prepare('SELECT * FROM user_registration WHERE email like :login_email');
+        $sss->bindValue(":login_email", "%$loginEmail%");
+        $sss->execute();
+        $user = $sss->fetch(PDO::FETCH_ASSOC);
+        if ($user || $user["password"] !== $loginPasswordCr) {
+            echo "პაროლი სწორია";
+        }
     }
-    ?>
-    </h1>
-    <button onclick="testClick()">Click</button>
-    <script src="./test.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-</body>
-</html>
+}
