@@ -27,12 +27,20 @@ input {
 .header {
     color: black;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 100px;
     font-weight: bold;
     font-size: 50px;
 }
 
 .errors {
     position: absolute;
-    height: 25px;
+    top: 0;
+    display: flex;
+    height: 100px;
+    width: 250px;
+    font-size: 12px;
+}
+
+.dt-button {
+    width: 1500px !important;
 }

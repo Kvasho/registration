@@ -9,7 +9,7 @@
         <label for="floatingPassword">გვარი</label>
     </div>
     <div class="form-floating">
-        <input type="number" class="form-control" minlength="11" name="id_number" placeholder="პირადი ნომერი">
+        <input type="number" class="form-control" minlength="11" min="0" name="id_number" placeholder="პირადი ნომერი">
         <label for="floatingPassword">პირადი ნომერი</label>
     </div>
     <div class="form-floating">
