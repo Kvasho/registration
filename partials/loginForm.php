@@ -8,5 +8,6 @@
         <input type="password" class="form-control" name="login_password" id="loginPassword" placeholder="პაროლი">
         <label for="floatingPassword">პაროლი</label>
     </div>
+    <p class="registration-form-error" style="display: none; font-size: 12px; color: red">იმეილი ან პაროლი არასწორია !!!</p>
     <button type="button" class="btn btn-primary" onclick="testClick()">Sign in</button>
 </form>
