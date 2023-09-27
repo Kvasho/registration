@@ -3,6 +3,8 @@ require './database.php';
 $statemant = $pdo->prepare('SELECT * FROM user_registration');
 $statemant->execute();
 $users = $statemant->fetchAll(PDO::FETCH_ASSOC);
+session_start();
+echo $_SESSION['logged_in'];
 ?>
 
 <!DOCTYPE html>
@@ -22,12 +24,14 @@ $users = $statemant->fetchAll(PDO::FETCH_ASSOC);
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-    <script defer src="./partials/datatable.js"></script>
+    <script defer src="./datatable.js"></script>
+    <script defer src="./test.js"></script>
     <title>კაბინეტი</title>
 </head>
-
+<?php if($_SESSION['logged_in']):?>
 <body>
     <h1>პირადი კაბინეტი</h1>
+    <button type="button" class="btn btn-primary" style="margin: 10px 0;" onclick="returnHandler()">მთავარ გვერდზე დაბრუნება</button>
     <div class="container">
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
@@ -64,9 +68,10 @@ $users = $statemant->fetchAll(PDO::FETCH_ASSOC);
             </tfoot>
         </table>
     </div>
-
-
-    <!--  -->
 </body>
-
+<?php elseif(!$_SESSION['logged_in']): ?>
+    <script>
+        window.location = "index.php"
+    </script>
+<?php endif;?>
 </html>
