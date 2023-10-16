@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#example').DataTable( {
         dom: 'Bfrtip',
-        buttons: [
+         buttons: [
             'excel', 'pdf'
         ]
     } );

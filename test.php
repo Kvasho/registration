@@ -1,4 +1,4 @@
-<?php 
+<?php
 require './database.php';
 session_start();
 
@@ -14,7 +14,7 @@ if (isset($_POST["login"])) {
         $_SESSION['logged_in'] = $user['email'];
         if ($user["password"] === $loginPasswordCr && $user["email"] === $loginEmail) {
             $_SESSION['logged_in'] = $loginEmail;
-            if($_SESSION['logged_in']){
+            if ($_SESSION['logged_in']) {
                 echo "success";
             }
         } else {
@@ -23,9 +23,7 @@ if (isset($_POST["login"])) {
     }
 }
 
-if(isset($_POST['logout'])){    
-    // unset($_SESSION['logged_in']);
+if (isset($_POST['logout'])) {
     echo 'logout';
     unset($_SESSION['logged_in']);
-
 }

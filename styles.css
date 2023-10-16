@@ -1,23 +1,34 @@
+@font-face {
+    font-family: "georgian";
+    src:
+      url("./fonts/georgian.TTF"),
+  }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "georgian";
+}
+
+body {
+    background-image: url('./icons/background.jpg');
 }
 
 .root {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    width: calc(100% - 100px);
-    margin: auto;
+    grid-template-columns: 1fr 1fr;
+    width: 800px;
 }
 
 h5 {
     padding-bottom: 20px;
-    color: green;
+    color: white;
+    font-weight: bold;
 }
 
 form {
-    padding: 50px;
+    padding: 20px;
 }
 
 input {
@@ -25,7 +36,7 @@ input {
 }
 
 .header {
-    color: black;
+    color: white;
     text-align: center;
     margin-top: 100px;
     font-weight: bold;
@@ -42,5 +53,25 @@ input {
 }
 
 .dt-button {
-    width: 1500px !important;
+    width: 120px !important;
+    border: 1px solid brown !important;
+    background: brown !important;
+    color: white;
+    font-weight: bold;
+    height: 35px;
+    transition: background-color 0.5s ease;
+}
+
+.dt-button:hover {
+    color: brown;
+    background: white !important;
+}
+
+table.dataTable.table-striped>tbody>tr.odd>* {
+    background-color: rgb(225, 120, 120);
+}
+
+.registered {
+    position: absolute;
+    top: 0;
 }
